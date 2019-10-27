@@ -23,8 +23,8 @@ public final class FormViewController: UIViewController {
     ///   - item: The item to append.
     ///   - itemViewType: Optionally, the item view type to use for this item.
     ///                   When none is specified, the default will be used.
-    public func append<T: FormItem>(_ item: T, using itemViewType: FormItemView<T>.Type? = nil) {
-        itemManager.append(item, using: itemViewType)
+    public func append<T: FormItem>(_ item: T) {
+        itemManager.append(item)
         
         if isViewLoaded {
             let itemView = itemManager.itemView(for: item)
@@ -32,7 +32,9 @@ public final class FormViewController: UIViewController {
         }
     }
     
-    private lazy var itemManager = FormViewItemManager(itemViewDelegate: self)
+    private lazy var itemManager = FormViewItemManager(itemViewDelegate: self, itemViewBuilder: itemViewBuilder)
+    
+    public var itemViewBuilder: FormItemViewBuilder = DefaultFormItemViewBuilder()
     
     // MARK: - Validity
     
@@ -40,16 +42,11 @@ public final class FormViewController: UIViewController {
     ///
     /// - Returns: Whether the form is valid or not.
     public func validate() -> Bool {
-        var textItems = itemManager.items.compactMap { $0 as? FormTextItem }
+        let formItems: [FormItem] = itemManager.items.flatMap { ($0 as? ComplexFormItem)?.flatSubItems() ?? [$0] }
+        let validatables: [Validatable] = formItems.compactMap { $0 as? Validatable }
         
-        // Append items from FormSplitTextItem.
-        // TODO: Consider having a childItems property in the protocol.
-        itemManager.items.compactMap { $0 as? FormSplitTextItem }.forEach { textItems += [$0.leftItem, $0.rightItem] }
-        
-        let failureMessages: [String] = textItems.compactMap { textItem in
-            guard let validator = textItem.validator else { return nil }
-            
-            return validator.isValid(textItem.value) ? nil : textItem.validationFailureMessage
+        let failureMessages: [String] = validatables.compactMap { validatable in
+            return validatable.isValid() ? nil : validatable.validationFailureMessage
         }
         
         // Exit when all validations passed.

@@ -8,7 +8,9 @@ import Foundation
 
 /// A form item in which two text items are shown side-by-side.
 /// :nodoc:
-public final class FormSplitTextItem: FormItem {
+public final class FormSplitTextItem: ComplexFormItem {
+    
+    private(set) var subItems: [FormItem]
     
     /// The text item displayed on the left side.
     public var leftItem: FormTextItem
@@ -23,6 +25,7 @@ public final class FormSplitTextItem: FormItem {
         assert(items.count == 2)
         leftItem = items[0]
         rightItem = items[1]
+        self.subItems = items
     }
     
 }

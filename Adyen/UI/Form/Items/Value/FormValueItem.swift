@@ -17,3 +17,9 @@ public protocol FormValueItem: FormItem {
     var value: ValueType { get set }
     
 }
+
+public protocol Validatable {
+    var validationFailureMessage: String? { get set }
+    func isValid() -> Bool
+    func maximumLength() -> Int
+}

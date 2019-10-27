@@ -12,11 +12,14 @@ internal final class FormViewItemManager {
     /// The delegate of the item views created by the manager.
     internal private(set) weak var itemViewDelegate: FormItemViewDelegate?
     
+    internal let itemViewBuilder: FormItemViewBuilder
+    
     /// Initializes the item manager.
     ///
     /// - Parameter itemViewDelegate: The delegate of the item views created by the manager.
-    internal init(itemViewDelegate: FormItemViewDelegate) {
+    internal init(itemViewDelegate: FormItemViewDelegate, itemViewBuilder: FormItemViewBuilder) {
         self.itemViewDelegate = itemViewDelegate
+        self.itemViewBuilder = itemViewBuilder
     }
     
     // MARK: - Items
@@ -30,10 +33,10 @@ internal final class FormViewItemManager {
     ///   - item: The item to append.
     ///   - itemViewType: Optionally, the item view type to use for this item.
     ///                   When none is specified, the default will be used.
-    internal func append<T: FormItem>(_ item: T, using itemViewType: FormItemView<T>.Type?) {
+    internal func append<T: FormItem>(_ item: T) {
         items.append(item)
         
-        let itemView = newItemView(for: item, using: itemViewType)
+        let itemView = newItemView(for: item)
         itemViews.append(itemView)
         allItemViews.append(itemView)
         allItemViews.append(contentsOf: itemView.childItemViews)
@@ -77,35 +80,8 @@ internal final class FormViewItemManager {
         return allItemViews.compactMap { $0 as? U }
     }
     
-    private func newItemView<T: FormItem>(for item: T, using itemViewType: FormItemView<T>.Type?) -> FormItemView<T> {
-        let itemViewType = itemViewType ?? self.itemViewType(for: item)
-        let itemView = itemViewType.init(item: item)
-        itemView.delegate = itemViewDelegate
-        itemView.childItemViews.forEach { $0.delegate = itemViewDelegate }
-        
-        return itemView
-    }
-    
-    private func itemViewType<T: FormItem>(for item: T) -> FormItemView<T>.Type {
-        let itemViewType: Any
-        
-        switch item {
-        case is FormHeaderItem:
-            itemViewType = FormHeaderItemView.self
-        case is FormFooterItem:
-            itemViewType = FormFooterItemView.self
-        case is FormTextItem:
-            itemViewType = FormTextItemView.self
-        case is FormSwitchItem:
-            itemViewType = FormSwitchItemView.self
-        case is FormSplitTextItem:
-            itemViewType = FormSplitTextItemView.self
-        default:
-            fatalError("No view type known for given item.")
-        }
-        
-        // swiftlint:disable:next force_cast
-        return itemViewType as! FormItemView<T>.Type
+    private func newItemView<T: FormItem>(for item: T) -> FormItemView<T> {
+        return itemViewBuilder.build(for: item, delegate: itemViewDelegate)
     }
     
 }

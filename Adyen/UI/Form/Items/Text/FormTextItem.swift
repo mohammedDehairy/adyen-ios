@@ -8,7 +8,7 @@ import Foundation
 
 /// An item in which text can be entered using a text field.
 /// :nodoc:
-open class FormTextItem: FormValueItem {
+open class FormTextItem: FormValueItem, Validatable {
     
     /// The type of value entered in the item.
     public typealias ValueType = String
@@ -50,4 +50,11 @@ open class FormTextItem: FormValueItem {
     /// An empty method that provides an opportunity for subclasses to know when the value changed.
     open func valueDidChange() {}
     
+    public func isValid() -> Bool {
+        return validator?.isValid(value) ?? true
+    }
+    
+    public func maximumLength() -> Int {
+        return validator?.maximumLength(for: value) ?? .max
+    }
 }

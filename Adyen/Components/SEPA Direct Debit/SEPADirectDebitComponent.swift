@@ -63,9 +63,11 @@ public final class SEPADirectDebitComponent: PaymentComponent, PresentableCompon
             return
         }
         
-        let details = SEPADirectDebitDetails(paymentMethod: sepaDirectDebitPaymentMethod,
-                                             iban: ibanItem.value,
-                                             ownerName: nameItem.value)
+        let details = SEPADirectDebitDetails(
+            paymentMethod: sepaDirectDebitPaymentMethod,
+            iban: ibanItem.value,
+            ownerName: nameItem.value
+        )
         footerItem.showsActivityIndicator.value = true
         
         delegate?.didSubmit(PaymentComponentData(paymentMethodDetails: details), from: self)

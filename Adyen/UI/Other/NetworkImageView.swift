@@ -10,57 +10,38 @@ import UIKit
 /// :nodoc:
 open class NetworkImageView: UIImageView {
     
+    public var imageLoader: ImageLoader? = DefaultImageLoader(executer: URLSession.shared)
+    
     /// The URL of the image to display.
     public var imageURL: URL? {
         didSet {
-            cancelCurrentTask()
+            guard imageURL != oldValue else { return }
+            imageLoader?.reset()
             image = nil
-            
-            // Only load an image when we're in a window.
-            if let imageURL = imageURL, window != nil {
-                loadImage(from: imageURL)
-            }
+            loadImageIfNeeded()
         }
     }
     
     /// :nodoc:
     open override func didMoveToWindow() {
         super.didMoveToWindow()
-        
-        // If we have an image URL and are embedded in a window, load the image if we aren't already.
-        if let imageURL = imageURL, window != nil, dataTask == nil {
-            loadImage(from: imageURL)
-        }
+        loadImageIfNeeded()
     }
     
     // MARK: - Private
     
-    private var dataTask: URLSessionDataTask?
-    
-    public func loadImage(from url: URL) {
-        let session = URLSession.shared
-        let task = session.dataTask(with: url) { data, response, error in
-            guard
-                let response = response as? HTTPURLResponse, response.statusCode == 200,
-                let data = data, error == nil,
-                let image = UIImage(data: data, scale: 1.0)
-            else {
-                return
-            }
-            
+    // If we have an image URL and are embedded in a window, load the image if we aren't already.
+    public func loadImageIfNeeded() {
+        guard let imageURL = imageURL, window != nil else { return }
+        imageLoader?.loadImage(from: imageURL) { image in
             DispatchQueue.main.async {
                 self.image = image
-                self.dataTask = nil
             }
         }
-        task.resume()
-        
-        dataTask = task
     }
     
     private func cancelCurrentTask() {
-        dataTask?.cancel()
-        dataTask = nil
+        imageLoader?.reset()
     }
     
 }

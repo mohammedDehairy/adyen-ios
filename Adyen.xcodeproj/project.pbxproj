@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D3A38BC23646CA000BE02AE /* FormItemViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A38BB23646CA000BE02AE /* FormItemViewBuilder.swift */; };
+		3D3A38BE236479D400BE02AE /* ComplexFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A38BD236479D400BE02AE /* ComplexFormItem.swift */; };
+		3D3A38C02365DB3800BE02AE /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A38BF2365DB3800BE02AE /* ImageLoader.swift */; };
+		3D3A38C22365E39100BE02AE /* URLRequestExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A38C12365E39100BE02AE /* URLRequestExecuter.swift */; };
 		E2028F5C2227F1930007FF8B /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2028F5B2227F1930007FF8B /* Details.swift */; };
 		E2028F5E222805E20007FF8B /* CardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2028F5D222805E20007FF8B /* CardDetails.swift */; };
 		E216D3BC221AAB240013CBCF /* FormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216D3BB221AAB240013CBCF /* FormItem.swift */; };
@@ -264,6 +268,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D3A38BB23646CA000BE02AE /* FormItemViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormItemViewBuilder.swift; sourceTree = "<group>"; };
+		3D3A38BD236479D400BE02AE /* ComplexFormItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexFormItem.swift; sourceTree = "<group>"; };
+		3D3A38BF2365DB3800BE02AE /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		3D3A38C12365E39100BE02AE /* URLRequestExecuter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExecuter.swift; sourceTree = "<group>"; };
 		E2028F5B2227F1930007FF8B /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		E2028F5D222805E20007FF8B /* CardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetails.swift; sourceTree = "<group>"; };
 		E216D3BB221AAB240013CBCF /* FormItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormItem.swift; sourceTree = "<group>"; };
@@ -523,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				E216D3BB221AAB240013CBCF /* FormItem.swift */,
+				3D3A38BD236479D400BE02AE /* ComplexFormItem.swift */,
 				E2C0E0BB220B2976008616F6 /* FormItemView.swift */,
 				E2D12BF2221D570C00EF682F /* Header */,
 				E2D12BF7221D596900EF682F /* Footer */,
@@ -845,6 +854,7 @@
 				E2C0E095220B04F0008616F6 /* FormViewController.swift */,
 				E2C0E0B5220B08ED008616F6 /* FormView.swift */,
 				E216D3BF221AD0620013CBCF /* FormViewItemManager.swift */,
+				3D3A38BB23646CA000BE02AE /* FormItemViewBuilder.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -854,6 +864,8 @@
 			children = (
 				E2C0E0C0220D7E5E008616F6 /* SubmitButton.swift */,
 				E28098C5220DCF3F0087928F /* NetworkImageView.swift */,
+				3D3A38BF2365DB3800BE02AE /* ImageLoader.swift */,
+				3D3A38C12365E39100BE02AE /* URLRequestExecuter.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1480,6 +1492,7 @@
 				E9AFF885224D0D3B005A0D8D /* RedirectDetails.swift in Sources */,
 				E2C0B55022A6AA0700D3367B /* AmountFormatter.swift in Sources */,
 				E9021DAA225789B1009CF7F4 /* Localization.swift in Sources */,
+				3D3A38C02365DB3800BE02AE /* ImageLoader.swift in Sources */,
 				E270FDEB225CC4C4006C2CD0 /* Observation.swift in Sources */,
 				E28098C4220DC66E0087928F /* ListItemView.swift in Sources */,
 				E97B971F22A14C6C00505476 /* ApplePayDetails.swift in Sources */,
@@ -1507,6 +1520,7 @@
 				E9093403228EDADA00C9F04B /* Payment.swift in Sources */,
 				E216D3CD221AFBB90013CBCF /* Validator.swift in Sources */,
 				E28098C0220DBF970087928F /* ListItem.swift in Sources */,
+				3D3A38C22365E39100BE02AE /* URLRequestExecuter.swift in Sources */,
 				E90139CB22846AD5004C74DA /* ComponentViewController.swift in Sources */,
 				E2D12C07221ED15F00EF682F /* FormSwitchItem.swift in Sources */,
 				E224088D22B0FD220058923E /* StoredPayPalPaymentMethod.swift in Sources */,
@@ -1529,6 +1543,8 @@
 				E21895E622A7CC56001B6EE0 /* FormSplitTextItemView.swift in Sources */,
 				E226F53C22969B530013A463 /* RedirectAction.swift in Sources */,
 				E9021DF8225E2240009CF7F4 /* ListSection.swift in Sources */,
+				3D3A38BC23646CA000BE02AE /* FormItemViewBuilder.swift in Sources */,
+				3D3A38BE236479D400BE02AE /* ComplexFormItem.swift in Sources */,
 				E9E3DAFD2225485400697074 /* URLSessionHelpers.swift in Sources */,
 				E28098BE220DBAA80087928F /* IssuerListComponent.swift in Sources */,
 				E9AFF881224CF8F4005A0D8D /* RedirectComponent.swift in Sources */,
